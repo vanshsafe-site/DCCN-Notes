@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Repository file index — DCCN Notes</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; max-width: 1000px; margin: 2rem auto; padding: 0 1rem; color: #111; }
+    h1 { font-size: 1.6rem; }
+    #status { color: #555; margin-bottom: 1rem }
+    .note { background:#f7f9fc; border-left:4px solid #dbeafe; padding: .6rem; margin-bottom: 1rem; color:#223 }
+    input[type="search"] { width: 100%; padding: .5rem; font-size: 1rem; box-sizing: border-box; margin-bottom: 1rem }
+    ul { list-style: none; padding: 0; }
+    li { padding: .4rem .5rem; border-radius: 6px; display:flex; gap:.6rem; align-items: center; justify-content: space-between }
+    li:hover { background: #f6f7fb }
+    .meta { color:#666; font-size:.9rem }
+    .links a, .links button { margin-right:.5rem; color:#0366d6; text-decoration:none; background:transparent; border:0; padding:0; font:inherit; cursor:pointer }
+    .links a:hover, .links button:hover { text-decoration:underline }
+    .badge { background:#eef; color:#0366d6; padding:.15rem .4rem; border-radius:4px; font-size:.8rem }
+    #previewWrap { margin-top: 1rem; display:none; }
+    #preview { width:100%; height:60vh; border:1px solid #ddd; border-radius:6px }
+    .small { font-size:.9rem; color:#666 }
+  </style>
+</head>
+<body>
+  <h1>Repository index: vanshsafe-site / Webdev-journey</h1>
+  <div id="status">Loading file list from GitHub...</div>
+  <div class="note">
+    This index lists all files in the repository. Since your files are HTML pages, the "Open (rendered)" link will open the page on your production domain (webdevjourney.vercel.app) when available so you can view it full-screen in a new tab. If the production domain doesn't have the file yet, the link falls back to the raw GitHub URL.
+  </div>
+
+  <input id="q" type="search" placeholder="Filter files (type a filename or extension, e.g. .html, README)" />
+  <ul id="files"></ul>
+
+  <div id="previewWrap">
+    <div class="small">Preview (embedded). If the site blocks embedding, the page may not load here — use "Open" to open in a new tab instead.</div>
+    <iframe id="preview" sandbox="allow-same-origin allow-scripts allow-forms" title="File preview"></iframe>
+    <div style="margin-top:.5rem"><button id="closePreview">Close preview</button></div>
+  </div>
+
+  <script>
+    // Config: set your production host where HTML pages are served.
+    // Leave as empty string '' to always open the raw.githubusercontent.com URL instead.
+    const productionHost = 'https://webdevjourney.vercel.app';
+
+    const owner = 'vanshsafe-site';
+    const repo = 'Webdev-journey';
+
+    const statusEl = document.getElementById('status');
+    const filesEl = document.getElementById('files');
+    const qEl = document.getElementById('q');
+    const previewWrap = document.getElementById('previewWrap');
+    const previewFrame = document.getElementById('preview');
+    const closePreviewBtn = document.getElementById('closePreview');
+
+    // Helper: escape HTML
+    function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    function productionUrlForPath(path){
+      if(!productionHost) return null;
+      // Ensure no double slashes
+      const host = productionHost.replace(/\/$/, '');
+      return host + '/' + encodeURI(path);
+    }
+
+    async function loadFileTree(){
+      try{
+        statusEl.textContent = 'Fetching repository metadata...';
+        const repoResp = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
+        if(!repoResp.ok) throw new Error('Failed to fetch repo metadata: ' + repoResp.status);
+        const repoMeta = await repoResp.json();
+        const branch = repoMeta.default_branch || 'main';
+
+        statusEl.textContent = `Listing files from branch "${branch}"...`;
+
+        // Get recursive tree to list all files
+        const treeUrl = `https://api.github.com/repos/${owner}/${repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`;
+        const treeResp = await fetch(treeUrl);
+        if(!treeResp.ok) throw new Error('Failed to fetch tree: ' + treeResp.status);
+        const treeData = await treeResp.json();
+        if(!Array.isArray(treeData.tree)) throw new Error('Unexpected tree response');
+
+        const blobs = treeData.tree.filter(item => item.type === 'blob');
+
+        if(blobs.length === 0){
+          statusEl.textContent = 'No files found in the repository.';
+          return;
+        }
+
+        statusEl.textContent = `Found ${blobs.length} files. Use the search box to filter.`;
+
+        // Build list items
+        const fileItems = blobs.map(item => {
+          const path = item.path;
+          const githubBlob = `https://github.com/${owner}/${repo}/blob/${branch}/${path}`;
+          const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${encodeURIComponent(path)}`;
+          return {
+            path,
+            githubBlob,
+            rawUrl,
+            size: item.size || null,
+            isHtml: path.toLowerCase().endsWith('.html') || path.toLowerCase().endsWith('.htm')
+          };
+        }).sort((a,b)=> a.path.localeCompare(b.path));
+
+        renderList(fileItems);
+
+        // Wire up search
+        qEl.addEventListener('input', ()=> renderList(fileItems, qEl.value));
+
+      }catch(err){
+        console.error(err);
+        statusEl.textContent = 'Error: ' + err.message + ' (Check console for details)';
+      }
+    }
+
+    function renderList(items, q=''){
+      const term = q.trim().toLowerCase();
+      filesEl.innerHTML = '';
+      const filtered = term ? items.filter(it => it.path.toLowerCase().includes(term)) : items;
+      if(filtered.length === 0){
+        filesEl.innerHTML = '<li class="meta">No matching files</li>';
+        return;
+      }
+      for(const it of filtered){
+        const li = document.createElement('li');
+
+        const left = document.createElement('div');
+        left.style.flex = '1';
+        left.innerHTML = `<strong>${esc(it.path)}</strong><div class="meta">${it.size? (it.size + ' bytes') : ''}</div>`;
+
+        const links = document.createElement('div');
+        links.className = 'links';
+
+        const viewA = document.createElement('a');
+        viewA.href = it.githubBlob;
+        viewA.target = '_blank';
+        viewA.rel = 'noopener noreferrer';
+        viewA.textContent = 'View (source)';
+
+        // Open: prefer productionHost for HTML files, fallback to raw URL
+        const openA = document.createElement('a');
+        let openHref = it.rawUrl;
+        if(it.isHtml){
+          const prod = productionUrlForPath(it.path);
+          if(prod) openHref = prod;
+        }
+        openA.href = openHref;
+        openA.target = '_blank';
+        openA.rel = 'noopener noreferrer';
+        openA.textContent = 'Open (rendered)';
+        openA.title = 'Open the page in a new tab (production host preferred)';
+
+        const rawA = document.createElement('a');
+        rawA.href = it.rawUrl;
+        rawA.target = '_blank';
+        rawA.rel = 'noopener noreferrer';
+        rawA.textContent = 'Raw';
+
+        links.appendChild(viewA);
+        links.appendChild(openA);
+        links.appendChild(rawA);
+
+        // Preview button for HTML files (embedded)
+        if(it.isHtml){
+          const previewBtn = document.createElement('button');
+          previewBtn.textContent = 'Preview';
+          previewBtn.onclick = (e) => {
+            e.preventDefault();
+            // Preview the production URL if available, otherwise raw
+            const previewUrl = productionUrlForPath(it.path) || it.rawUrl;
+            openPreview(previewUrl);
+          };
+          links.appendChild(previewBtn);
+        }
+
+        li.appendChild(left);
+        li.appendChild(links);
+        filesEl.appendChild(li);
+      }
+    }
+
+    function openPreview(url){
+      previewFrame.src = url;
+      previewWrap.style.display = 'block';
+      let loaded = false;
+      function onLoad(){ loaded = true; }
+      previewFrame.addEventListener('load', onLoad, { once: true });
+      setTimeout(()=>{
+        if(!loaded){
+          statusEl.textContent = 'Preview may have been blocked from embedding. Use "Open (rendered)" to view in a new tab.';
+        }
+      }, 1200);
+    }
+
+    closePreviewBtn.addEventListener('click', ()=>{
+      previewFrame.src = 'about:blank';
+      previewWrap.style.display = 'none';
+      statusEl.textContent = `Found files — preview closed.`;
+    });
+
+    // Kick off
+    loadFileTree();
+  </script>
+</body>
+</html>
