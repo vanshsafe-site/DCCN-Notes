@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@page {
+  size: A4;
+  margin: 2.1cm 1.8cm 2.3cm 1.8cm;
+  @bottom-center {
+    content: "Computer Networks — Detailed Revision Notes  •  Page " counter(page) " of " counter(pages);
+    font-size: 8.5pt;
+    color: #7a8699;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+}
+@page cover {
+  margin: 0;
+  @bottom-center { content: ""; }
+}
+
+* { box-sizing: border-box; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 10.7pt;
+  line-height: 1.55;
+  color: #24303d;
+}
+h1, h2, h3, h4 { font-family: 'Segoe UI', Arial, sans-serif; }
+
+/* ---------- Cover Page ---------- */
+.cover {
+  page: cover;
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(155deg, #0b2545 0%, #13315c 45%, #1d4e89 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 60px;
+}
+.cover .tag {
+  letter-spacing: 5px;
+  font-size: 11pt;
+  color: #8ec5ff;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin-bottom: 26px;
+  text-transform: uppercase;
+}
+.cover h1 {
+  font-size: 40pt;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  line-height: 1.2;
+}
+.cover h2 {
+  font-size: 15pt;
+  font-weight: 400;
+  color: #cfe3ff;
+  margin: 0 0 50px 0;
+}
+.cover .divider {
+  width: 90px;
+  height: 3px;
+  background: #4fa3ff;
+  margin: 0 0 40px 0;
+}
+.cover .info-box {
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 10px;
+  padding: 22px 40px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 10.5pt;
+  color: #e8f1ff;
+  line-height: 1.9;
+}
+.cover .info-box b { color: #ffffff; }
+.cover .footer-note {
+  position: absolute;
+  bottom: 40px;
+  font-size: 9pt;
+  color: #9fc0e8;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* ---------- TOC ---------- */
+.toc-page h2.toc-title {
+  font-size: 22pt;
+  color: #0b2545;
+  border-bottom: 3px solid #1d4e89;
+  padding-bottom: 10px;
+  margin-bottom: 22px;
+}
+.toc-columns {
+  column-count: 2;
+  column-gap: 34px;
+}
+.toc-item {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 9.8pt;
+  padding: 5px 0;
+  border-bottom: 1px dotted #c7d3e0;
+  break-inside: avoid;
+  color: #33455c;
+}
+.toc-item span.num {
+  color: #1d4e89;
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+/* ---------- Section headers ---------- */
+.section {
+  margin-top: 26px;
+}
+.section-head {
+  background: #0b2545;
+  color: #fff;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  padding: 9px 16px;
+  border-radius: 6px;
+  font-size: 13pt;
+  font-weight: 700;
+  margin-bottom: 14px;
+  break-after: avoid;
+}
+.section-head .num-badge {
+  display: inline-block;
+  background: #4fa3ff;
+  color: #06192f;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  text-align: center;
+  line-height: 26px;
+  font-size: 11pt;
+  margin-right: 10px;
+  font-weight: 800;
+}
+h3.sub-head {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 11.5pt;
+  color: #0b2545;
+  background: #eaf1fb;
+  border-left: 4px solid #1d4e89;
+  padding: 5px 10px;
+  margin: 16px 0 8px 0;
+  break-after: avoid;
+}
+h4.layer-head {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 10.8pt;
+  color: #0b2545;
+  margin: 14px 0 6px 0;
+  break-after: avoid;
+}
+h4.layer-head .badge {
+  background: #1d4e89;
+  color: #fff;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 9.5pt;
+  margin-right: 6px;
+}
+
+p { margin: 6px 0; text-align: justify; }
+ul, ol { margin: 6px 0 10px 0; padding-left: 22px; }
+li { margin: 3px 0; }
+
+/* ---------- Callout boxes ---------- */
+.box {
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 10pt;
+  break-inside: avoid;
+}
+.box-example {
+  background: #f4f8fc;
+  border-left: 4px solid #4fa3ff;
+}
+.box-example .label { font-weight: 700; color: #1d4e89; font-family: 'Segoe UI', Arial, sans-serif; font-size: 9pt; text-transform: uppercase; letter-spacing: 0.5px; }
+.box-exam {
+  background: #eefbf3;
+  border-left: 4px solid #23a566;
+}
+.box-exam .label { font-weight: 700; color: #1b7a4d; font-family: 'Segoe UI', Arial, sans-serif; font-size: 9pt; text-transform: uppercase; letter-spacing: 0.5px; }
+.box-warning {
+  background: #fff6ec;
+  border-left: 4px solid #e08a1f;
+}
+.box-warning .label { font-weight: 700; color: #b5680e; font-family: 'Segoe UI', Arial, sans-serif; font-size: 9pt; text-transform: uppercase; letter-spacing: 0.5px; }
+.box-key {
+  background: #f3f0fb;
+  border-left: 4px solid #7451c9;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 9.8pt;
+}
+.box-key .label { font-weight: 700; color: #5a3aa8; font-family: 'Segoe UI', Arial, sans-serif; font-size: 9pt; text-transform: uppercase; letter-spacing: 0.5px; }
+.box-diagram {
+  background: #fbfbfb;
+  border: 1.5px dashed #9aa7b8;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 9.3pt;
+  white-space: pre-wrap;
+  color: #3a4552;
+  text-align: left;
+}
+
+/* ---------- Tables ---------- */
+table.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0 14px 0;
+  font-size: 9.7pt;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  break-inside: avoid;
+}
+table.data-table th {
+  background: #1d4e89;
+  color: #fff;
+  padding: 7px 9px;
+  text-align: left;
+  font-weight: 600;
+}
+table.data-table td {
+  padding: 6px 9px;
+  border-bottom: 1px solid #e0e6ee;
+  vertical-align: top;
+}
+table.data-table tr:nth-child(even) td { background: #f6f9fc; }
+
+/* Adv/Disadv two-column layout */
+.pros-cons {
+  display: flex;
+  gap: 14px;
+  margin: 8px 0 12px 0;
+}
+.pros-cons .col {
+  flex: 1;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 9.7pt;
+}
+.pros-cons .adv { background: #eefbf3; border: 1px solid #bfe8d1; }
+.pros-cons .dis { background: #fdeeee; border: 1px solid #f2c6c6; }
+.pros-cons .col-title {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 9.5pt;
+  margin-bottom: 4px;
+}
+.pros-cons .adv .col-title { color: #1b7a4d; }
+.pros-cons .dis .col-title { color: #a13a3a; }
+.pros-cons ul { margin: 2px 0; padding-left: 16px; }
+
+.mnemonic {
+  text-align: center;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 12.5pt;
+  font-weight: 700;
+  color: #0b2545;
+  background: #eaf1fb;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 10px 0;
+  letter-spacing: 1px;
+}
+.mnemonic .sentence {
+  display: block;
+  font-size: 10pt;
+  font-weight: 400;
+  font-style: italic;
+  color: #3a4a5e;
+  margin-top: 6px;
+  letter-spacing: normal;
+}
+
+.flow {
+  text-align: center;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 11pt;
+  color: #fff;
+  background: #1d4e89;
+  border-radius: 6px;
+  padding: 10px;
+  margin: 10px 0;
+  letter-spacing: 0.5px;
+}
+
+.qlist {
+  columns: 1;
+  font-size: 9.8pt;
+}
+.qlist li { margin: 4px 0; }
+
+.definition-card {
+  background: #f4f8fc;
+  border: 1px solid #cfe0f2;
+  border-radius: 6px;
+  padding: 9px 13px;
+  margin: 7px 0;
+  font-size: 9.8pt;
+  break-inside: avoid;
+}
+.definition-card b { color: #0b2545; font-family: 'Segoe UI', Arial, sans-serif; }
+
+.strategy-card {
+  background: #fff;
+  border: 1.5px solid #1d4e89;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 9.8pt;
+  break-inside: avoid;
+}
+.strategy-card .title {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-weight: 700;
+  color: #1d4e89;
+  margin-bottom: 4px;
+}
+
+.final-box {
+  background: linear-gradient(155deg, #0b2545, #1d4e89);
+  color: #fff;
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-top: 16px;
+  font-size: 10.3pt;
+}
+.final-box h3 {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #8ec5ff;
+  margin-top: 0;
+}
+.final-box p { color: #eaf1fb; }
+</style>
+</head>
+<body>
+
+<!-- ================= COVER PAGE ================= -->
+<div class="cover">
+  <div class="tag">Diploma CSE &nbsp;•&nbsp; Subjective Examination Revision</div>
+  <h1>Computer Networks</h1>
+  <h2>Detailed Revision Notes</h2>
+  <div class="divider"></div>
+  <div class="info-box">
+    Prepared in an old-school professor style<br>
+    <b>Covers:</b> OSI Model &middot; Topologies &middot; Transmission Media<br>
+    Line Coding &middot; Switching &middot; TDM &middot; Exam Strategy
+  </div>
+  <div class="footer-note">Compiled Revision Booklet — 42 Topics</div>
+</div>
+
+<!-- ================= TABLE OF CONTENTS ================= -->
+<div class="toc-page">
+<h2 class="toc-title">Contents</h2>
+<div class="toc-columns">
+<div class="toc-item"><span class="num">1.</span>Introduction to Computer Networks</div>
+<div class="toc-item"><span class="num">2.</span>Goals of Computer Networks</div>
+<div class="toc-item"><span class="num">3.</span>Applications of Computer Networks</div>
+<div class="toc-item"><span class="num">4.</span>Network Structure</div>
+<div class="toc-item"><span class="num">5.</span>Network Architecture</div>
+<div class="toc-item"><span class="num">6.</span>Client-Server Architecture</div>
+<div class="toc-item"><span class="num">7.</span>Peer-to-Peer Architecture</div>
+<div class="toc-item"><span class="num">8.</span>OSI Reference Model</div>
+<div class="toc-item"><span class="num">9.</span>Detailed Explanation of All 7 OSI Layers</div>
+<div class="toc-item"><span class="num">10.</span>OSI Layer Data Units</div>
+<div class="toc-item"><span class="num">11.</span>Important OSI Layer Distinctions</div>
+<div class="toc-item"><span class="num">12.</span>Network Topology</div>
+<div class="toc-item"><span class="num">13.</span>Bus Topology</div>
+<div class="toc-item"><span class="num">14.</span>Star Topology</div>
+<div class="toc-item"><span class="num">15.</span>Ring Topology</div>
+<div class="toc-item"><span class="num">16.</span>Mesh Topology</div>
+<div class="toc-item"><span class="num">17.</span>Transmission Media</div>
+<div class="toc-item"><span class="num">18.</span>Guided Transmission Media</div>
+<div class="toc-item"><span class="num">19.</span>Twisted Pair Cable</div>
+<div class="toc-item"><span class="num">20.</span>Coaxial Cable</div>
+<div class="toc-item"><span class="num">21.</span>Optical Fiber</div>
+<div class="toc-item"><span class="num">22.</span>Unguided Transmission Media</div>
+<div class="toc-item"><span class="num">23.</span>Radio Waves</div>
+<div class="toc-item"><span class="num">24.</span>Microwaves</div>
+<div class="toc-item"><span class="num">25.</span>Infrared</div>
+<div class="toc-item"><span class="num">26.</span>Line Coding</div>
+<div class="toc-item"><span class="num">27.</span>Purpose of Line Coding</div>
+<div class="toc-item"><span class="num">28.</span>Unipolar Line Coding</div>
+<div class="toc-item"><span class="num">29.</span>Polar Line Coding</div>
+<div class="toc-item"><span class="num">30.</span>Bipolar / AMI Line Coding</div>
+<div class="toc-item"><span class="num">31.</span>Manchester Encoding</div>
+<div class="toc-item"><span class="num">32.</span>Comparison of Line Coding Schemes</div>
+<div class="toc-item"><span class="num">33.</span>Switching</div>
+<div class="toc-item"><span class="num">34.</span>Circuit Switching</div>
+<div class="toc-item"><span class="num">35.</span>Phases of Circuit Switching</div>
+<div class="toc-item"><span class="num">36.</span>Packet Switching</div>
+<div class="toc-item"><span class="num">37.</span>Circuit Switching vs Packet Switching</div>
+<div class="toc-item"><span class="num">38.</span>Time Division Multiplexing (TDM)</div>
+<div class="toc-item"><span class="num">39.</span>Important Definitions for Examination</div>
+<div class="toc-item"><span class="num">40.</span>Last-Minute Revision Sheet</div>
+<div class="toc-item"><span class="num">41.</span>Common Mistakes to Avoid</div>
+<div class="toc-item"><span class="num">42.</span>Important Subjective Questions</div>
+</div>
+</div>
+
+<!-- ================= 1. INTRODUCTION ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">1</span>Introduction to Computer Networks</div>
+<p>A computer network is a collection of two or more interconnected computers and other devices that communicate with one another and share data, resources, and services.</p>
+<p>The devices in a network may include:</p>
+<ul>
+<li>Computers</li><li>Servers</li><li>Smartphones</li><li>Printers</li><li>Routers</li><li>Switches</li><li>Access points</li><li>Storage devices</li><li>IoT devices</li>
+</ul>
+<p>The devices communicate through communication links and follow a set of rules called <b>protocols</b>.</p>
+<div class="flow">Device A &nbsp;—— communication medium ——&nbsp; Device B</div>
+<p>If many devices are connected and can exchange information, they form a network.</p>
+<div class="box box-warning"><span class="label">Important</span><br>A network is therefore <b>not merely</b> a collection of computers. It includes devices, communication media, networking equipment, addressing methods, protocols, and services.</div>
+</div>
+
+<!-- ================= 2. GOALS ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">2</span>Goals of Computer Networks</div>
+<p>The major goals of computer networking are the following.</p>
+
+<h4 class="layer-head"><span class="badge">1</span>Data Communication</h4>
+<p>A network allows information to be transferred from one device to another.</p>
+<div class="box box-example"><span class="label">Examples</span><br>Sending a message &middot; Sending an email &middot; Uploading a file &middot; Watching an online video</div>
+
+<h4 class="layer-head"><span class="badge">2</span>Resource Sharing</h4>
+<p>Hardware and software resources can be shared among multiple users.</p>
+<div class="box box-example"><span class="label">Examples</span><br>One printer used by many computers &middot; Shared storage &middot; Shared applications &middot; Shared internet connection</div>
+
+<h4 class="layer-head"><span class="badge">3</span>Communication</h4>
+<p>Networks provide fast communication between people and systems.</p>
+<div class="box box-example"><span class="label">Examples</span><br>Email &middot; Text messaging &middot; Voice calls &middot; Video conferencing</div>
+
+<h4 class="layer-head"><span class="badge">4</span>Remote Access</h4>
+<p>A user can access resources or systems from a different location.</p>
+<div class="box box-example"><span class="label">Examples</span><br>Remote desktop &middot; Accessing college servers &middot; Cloud computing &middot; Online banking</div>
+
+<h4 class="layer-head"><span class="badge">5</span>Reliability and Availability</h4>
+<p>Networks can provide alternative paths or duplicate resources so that services can remain available even when one component fails.</p>
+
+<h4 class="layer-head"><span class="badge">6</span>Scalability</h4>
+<p>A good network can be expanded by adding more devices, users, or services without completely redesigning the system.</p>
+
+<h4 class="layer-head"><span class="badge">7</span>Centralized Management</h4>
+<p>In many network architectures, resources and users can be centrally managed, monitored, and secured.</p>
+</div>
+
+<!-- ================= 3. APPLICATIONS ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">3</span>Applications of Computer Networks</div>
+<p>Applications are the practical areas where computer networks are used.</p>
+<div class="box box-warning"><span class="label">Important</span><br>Do not confuse "goals" with "applications." For example: Resource sharing is a <b>goal</b>. Printer sharing is an <b>application</b> of that goal.</div>
+<p>Major applications include:</p>
+<table class="data-table">
+<tr><th style="width:28%">Application</th><th>Description</th></tr>
+<tr><td>Communication</td><td>Email, instant messaging, voice calls, and video conferencing.</td></tr>
+<tr><td>File and Data Sharing</td><td>Users can exchange files and access shared databases.</td></tr>
+<tr><td>Resource Sharing</td><td>Printers, storage systems, internet connections, and software can be shared.</td></tr>
+<tr><td>Remote Access</td><td>Users can access computers, servers, and services from distant locations.</td></tr>
+<tr><td>Internet and Web Services</td><td>Browsing websites, search engines, cloud platforms, and web applications all depend on networks.</td></tr>
+<tr><td>Online Education</td><td>Online classes, learning management systems, video lectures, and digital examinations use computer networks.</td></tr>
+<tr><td>Online Banking and E-Commerce</td><td>Banking transactions, payments, shopping, and order processing depend on networks.</td></tr>
+<tr><td>Entertainment</td><td>Online gaming, video streaming, music streaming, and cloud gaming use computer networks.</td></tr>
+<tr><td>Distributed Computing</td><td>Different computers can cooperate to perform a task.</td></tr>
+<tr><td>Social Networking</td><td>Social media platforms allow users to exchange information and communicate through networks.</td></tr>
+</table>
+</div>
+
+<!-- ================= 4. NETWORK STRUCTURE ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">4</span>Network Structure</div>
+<p>Network structure describes the components of a network and how those components are physically or logically connected. A network structure generally includes:</p>
+<ol>
+<li><b>Nodes / End Devices</b> — Devices that send or receive data. Examples: Computer, Mobile phone, Printer, Server.</li>
+<li><b>Transmission Media</b> — The medium through which data travels. Examples: Twisted pair, Coaxial cable, Optical fiber, Radio waves.</li>
+<li><b>Networking Devices</b> — Devices that connect, forward, or control network traffic. Examples: Switch, Router, Hub, Access point.</li>
+<li><b>Protocols</b> — Rules that control communication.</li>
+<li><b>Addressing</b> — Devices need identifiers so that data can reach the intended destination.</li>
+</ol>
+<div class="mnemonic">Network Structure = Devices + Links + Networking Equipment + Protocols</div>
+</div>
+
+<!-- ================= 5. NETWORK ARCHITECTURE ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">5</span>Network Architecture</div>
+<p>Network architecture is the overall design and organization of a network. It describes how devices communicate, how services are provided, and how different components work together.</p>
+<p>Two important architectures are:</p>
+<ol><li>Client-Server Architecture</li><li>Peer-to-Peer (P2P) Architecture</li></ol>
+</div>
+
+<!-- ================= 6. CLIENT-SERVER ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">6</span>Client-Server Architecture</div>
+<p>In client-server architecture, a dedicated server provides services or resources to client devices.</p>
+<p><b>Client:</b> A device or application requesting a service.<br><b>Server:</b> A system providing a service or resource.</p>
+<div class="box-diagram">Client 1 ——\
+Client 2 ——— Server
+Client 3 ——/</div>
+<div class="box box-example"><span class="label">Examples</span><br>Web server serving websites &middot; Email server handling email &middot; File server storing shared files &middot; Database server providing database services</div>
+<div class="pros-cons">
+<div class="col adv"><div class="col-title">Advantages</div><ul><li>Centralized management</li><li>Easier security control</li><li>Centralized data</li><li>Easier backup</li><li>Suitable for large networks</li></ul></div>
+<div class="col dis"><div class="col-title">Disadvantages</div><ul><li>Server failure can affect many clients</li><li>Server can become a bottleneck</li><li>More expensive and complex than simple peer-to-peer setups</li></ul></div>
+</div>
+</div>
+
+<!-- ================= 7. P2P ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">7</span>Peer-to-Peer Architecture</div>
+<p>In a peer-to-peer network, computers can communicate and share resources directly with one another without requiring a dedicated central server. Each computer can act as both a client and a server.</p>
+<div class="box-diagram">PC A &lt;——&gt; PC B
+   \          /
+    \        /
+     \      /
+      PC C</div>
+<div class="pros-cons">
+<div class="col adv"><div class="col-title">Advantages</div><ul><li>Simple for small networks</li><li>Lower cost</li><li>No dedicated server required</li></ul></div>
+<div class="col dis"><div class="col-title">Disadvantages</div><ul><li>Difficult to manage as the network grows</li><li>Security can be weaker</li><li>Backup and administration are decentralized</li></ul></div>
+</div>
+</div>
+
+<!-- ================= 8. OSI MODEL ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">8</span>OSI Reference Model</div>
+<p>OSI stands for <b>Open Systems Interconnection</b>. The OSI model is a reference model developed to standardize and explain network communication. It divides communication into seven layers.</p>
+<p>The seven layers from top to bottom are:</p>
+<ol start="7" reversed><li>Application</li><li>Presentation</li><li>Session</li><li>Transport</li><li>Network</li><li>Data Link</li><li>Physical</li></ol>
+<div class="mnemonic">APSTNDP<span class="sentence">"Arey Pagle Suno Toh Nah Diaper Pehen"</span></div>
+<p>The OSI model is important because it divides a complicated networking process into smaller, understandable functions. Each layer has a particular responsibility and communicates with the layers immediately above and below it.</p>
+</div>
+
+<!-- ================= 9. ALL 7 OSI LAYERS ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">9</span>Detailed Explanation of All 7 OSI Layers</div>
+
+<h4 class="layer-head"><span class="badge">Layer 7</span>Application Layer</h4>
+<p>The Application Layer is the top layer of the OSI model. It provides network services that are used by end-user applications.</p>
+<p><b>Examples of services:</b> Email &middot; Web access &middot; File transfer &middot; Network resource access</p>
+<div class="box box-warning"><span class="label">Important point</span><br>The Application Layer does NOT mean the entire application itself. It provides network-related services that applications use.</div>
+<p><b>Common protocols:</b> HTTP, FTP, SMTP, DNS</p>
+<div class="box box-exam"><span class="label">Exam Answer</span><br>"The Application Layer provides network services to end-user applications such as web browsing, email, and file transfer."</div>
+
+<h4 class="layer-head"><span class="badge">Layer 6</span>Presentation Layer</h4>
+<p>The Presentation Layer is concerned with the representation and format of data.</p>
+<p><b>Major functions:</b></p>
+<ol>
+<li><b>Translation</b> — Converts data between different formats or representations.</li>
+<li><b>Encryption and Decryption</b> — Protects data by converting it into an encoded form and restoring it when required.</li>
+<li><b>Compression and Decompression</b> — Reduces the size of data for efficient transmission and restores it at the destination.</li>
+</ol>
+<div class="box box-key"><span class="label">Easy memory</span><br>Presentation = "How should the data be presented?"</div>
+<div class="box box-exam"><span class="label">Exam Answer</span><br>"The Presentation Layer handles data translation, encryption/decryption, and compression/decompression so that information is represented in a form understood by communicating systems."</div>
+
+<h4 class="layer-head"><span class="badge">Layer 5</span>Session Layer</h4>
+<p>The Session Layer manages communication sessions between applications.</p>
+<p><b>Major functions:</b></p>
+<ol><li>Establishes a session</li><li>Maintains/manages the session</li><li>Synchronizes communication</li><li>Terminates the session</li></ol>
+<p>A session is a logical conversation between communicating applications. For example, when two systems communicate continuously, the Session Layer helps manage that conversation.</p>
+<div class="box box-warning"><span class="label">Important distinction</span><br>Do not write simply: "Session Layer keeps the connection alive." Better: "The Session Layer establishes, manages, synchronizes, and terminates sessions between applications."</div>
+
+<h4 class="layer-head"><span class="badge">Layer 4</span>Transport Layer</h4>
+<p>The Transport Layer provides end-to-end delivery of data.</p>
+<p><b>Major functions:</b></p>
+<ol>
+<li><b>Segmentation</b> — Large data is divided into smaller units.</li>
+<li><b>Reassembly</b> — The units are reassembled at the destination.</li>
+<li><b>Error control</b> — Helps detect and recover from transmission problems.</li>
+<li><b>Flow control</b> — Prevents a fast sender from overwhelming a slower receiver.</li>
+<li><b>Reliable delivery</b> — In reliable transport, mechanisms can ensure data reaches the destination correctly and in order.</li>
+<li><b>End-to-end delivery</b> — Communication is handled between source and destination systems.</li>
+</ol>
+<div class="box box-warning"><span class="label">Important correction</span><br>Encryption/decryption is primarily associated with the Presentation Layer, not the Transport Layer in the basic OSI model.</div>
+<div class="box box-exam"><span class="label">Exam Answer</span><br>"The Transport Layer provides end-to-end delivery and performs segmentation, reassembly, flow control, error control, and reliability functions."</div>
+
+<h4 class="layer-head"><span class="badge">Layer 3</span>Network Layer</h4>
+<p>The Network Layer is responsible for delivering packets across different networks.</p>
+<p><b>Major functions:</b></p>
+<ol><li><b>Logical addressing</b> — Uses logical addresses such as IP addresses.</li><li><b>Routing</b> — Determines a suitable path for packets.</li><li><b>Packet forwarding</b> — Forwards packets toward their destination.</li></ol>
+<p>The Network Layer is especially important when source and destination are on different networks.</p>
+<div class="box-diagram">Computer A | Network 1 | Router | Network 2 | Computer B</div>
+<p>The Network Layer helps determine how packets travel from A to B.</p>
+<div class="box box-exam"><span class="label">Exam Answer</span><br>"The Network Layer provides logical addressing, routing, and packet forwarding to deliver packets from source to destination across interconnected networks."</div>
+
+<h4 class="layer-head"><span class="badge">Layer 2</span>Data Link Layer</h4>
+<p>The Data Link Layer provides reliable node-to-node delivery over a single link.</p>
+<p><b>Major functions:</b></p>
+<ol><li><b>Framing</b> — Data is organized into frames.</li><li><b>MAC addressing</b> — Uses physical/MAC addresses for local delivery.</li><li><b>Error detection</b> — Detects certain transmission errors.</li><li><b>Node-to-node delivery</b> — Transfers frames between directly connected network nodes.</li></ol>
+<div class="box box-warning"><span class="label">Important</span><br>At this layer, the data unit is a <b>FRAME</b>. Do not call it a packet when specifically discussing the Data Link Layer.</div>
+<div class="box box-exam"><span class="label">Exam Answer</span><br>"The Data Link Layer provides node-to-node delivery using frames and MAC addresses and performs functions such as framing and error detection."</div>
+
+<h4 class="layer-head"><span class="badge">Layer 1</span>Physical Layer</h4>
+<p>The Physical Layer is the lowest OSI layer. It deals with the actual transmission of raw bits over a physical medium.</p>
+<p><b>It defines characteristics such as:</b> Electrical signals, Optical signals, Radio signals, Connectors, Cables, Signal levels, Physical transmission.</p>
+<p>The Physical Layer converts bits into signals suitable for transmission.</p>
+<div class="box box-warning"><span class="label">Important</span><br>The Physical Layer deals with <b>BITS</b> and <b>SIGNALS</b>. It does not deal with packets as its basic data unit.</div>
+<div class="box box-exam"><span class="label">Exam Answer</span><br>"The Physical Layer transmits raw bits over the communication medium using electrical, optical, or radio signals."</div>
+</div>
+
+<!-- ================= 10. DATA UNITS ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">10</span>OSI Layer Data Units</div>
+<p>A very important sequence — as data descends through Application, Presentation, and Session it stays as <b>DATA</b>, then:</p>
+<table class="data-table">
+<tr><th>Layer</th><th>Data Unit</th></tr>
+<tr><td>Application / Presentation / Session</td><td>Data</td></tr>
+<tr><td>Transport</td><td>Segment</td></tr>
+<tr><td>Network</td><td>Packet</td></tr>
+<tr><td>Data Link</td><td>Frame</td></tr>
+<tr><td>Physical</td><td>Bits</td></tr>
+</table>
+<div class="flow">DATA &nbsp;→&nbsp; SEGMENT &nbsp;→&nbsp; PACKET &nbsp;→&nbsp; FRAME &nbsp;→&nbsp; BITS</div>
+<p>At the receiver, the process is reversed:</p>
+<div class="flow">BITS &nbsp;→&nbsp; FRAME &nbsp;→&nbsp; PACKET &nbsp;→&nbsp; SEGMENT &nbsp;→&nbsp; DATA</div>
+<p>This concept is called <b>encapsulation</b> and <b>decapsulation</b>.</p>
+
+<h4 class="layer-head"><span class="badge">↓</span>Encapsulation</h4>
+<p>When data moves down the OSI layers at the sender, each layer can add its own control information: Application data → Transport adds information → Segment → Network adds information → Packet → Data Link adds information → Frame → Physical sends bits/signals.</p>
+
+<h4 class="layer-head"><span class="badge">↑</span>Decapsulation</h4>
+<p>At the receiver, information is processed upward through the layers: Bits → Frame → Packet → Segment → Data.</p>
+</div>
+
+<!-- ================= 11. OSI DISTINCTIONS ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">11</span>Important OSI Layer Distinctions</div>
+<table class="data-table">
+<tr><th>Layer</th><th>Key Responsibility</th></tr>
+<tr><td>Application</td><td>Network services for end-user applications.</td></tr>
+<tr><td>Presentation</td><td>Data format, translation, encryption/decryption, compression.</td></tr>
+<tr><td>Session</td><td>Establish, manage, synchronize, and terminate sessions.</td></tr>
+<tr><td>Transport</td><td>End-to-end delivery, segmentation, reliability, flow/error control.</td></tr>
+<tr><td>Network</td><td>IP/logical addressing, routing, packet forwarding.</td></tr>
+<tr><td>Data Link</td><td>Frames, MAC addresses, node-to-node delivery, error detection.</td></tr>
+<tr><td>Physical</td><td>Bits and physical signals through the transmission medium.</td></tr>
+</table>
+<div class="box box-key"><span class="label">Very short memory version</span><br>
+7 Application = Services &nbsp;|&nbsp; 6 Presentation = Format &nbsp;|&nbsp; 5 Session = Conversation &nbsp;|&nbsp; 4 Transport = End-to-end delivery &nbsp;|&nbsp; 3 Network = Path &nbsp;|&nbsp; 2 Data Link = Frame/link &nbsp;|&nbsp; 1 Physical = Signals</div>
+</div>
+
+<!-- ================= 12. TOPOLOGY ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">12</span>Network Topology</div>
+<p>Network topology is the physical or logical arrangement of devices and connections in a network. It describes how network devices are connected.</p>
+<p>Common topologies: Bus, Star, Ring, Mesh. Other topologies exist, but these are fundamental syllabus topics.</p>
+</div>
+
+<!-- ================= 13. BUS ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">13</span>Bus Topology</div>
+<p>In Bus Topology, all devices are connected to a common backbone cable.</p>
+<div class="box-diagram">PC —— PC —— PC —— PC
+════════ Common Backbone ════════</div>
+<div class="pros-cons">
+<div class="col adv"><div class="col-title">Advantages</div><ul><li>Simple design</li><li>Requires less cable</li><li>Relatively inexpensive for small networks</li></ul></div>
+<div class="col dis"><div class="col-title">Disadvantages</div><ul><li>Failure of the backbone can affect the network</li><li>Troubleshooting can be difficult</li><li>Performance can decrease as traffic increases</li><li>Collisions can occur in traditional shared-bus networks</li></ul></div>
+</div>
+<div class="box box-key"><span class="label">Key phrase</span><br>"Single common backbone."</div>
+</div>
+
+<!-- ================= 14. STAR ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">14</span>Star Topology</div>
+<p>In Star Topology, every device has a separate connection to a central networking device, usually a switch or hub.</p>
+<div class="box-diagram">        PC
+         |
+PC —— SWITCH —— PC
+         |
+         PC</div>
+<div class="pros-cons">
+<div class="col adv"><div class="col-title">Advantages</div><ul><li>Easy to install</li><li>Easy to manage</li><li>Easy to identify a failed link</li><li>Failure of one cable normally affects only that device</li><li>Easy to expand</li></ul></div>
+<div class="col dis"><div class="col-title">Disadvantages</div><ul><li>Failure of the central device can affect the whole network</li><li>Requires more cable than bus topology</li></ul></div>
+</div>
+<div class="box box-warning"><span class="label">Important correction</span><br>Do not automatically say "router" as the central device. For a typical LAN Star Topology, the central device is usually a <b>SWITCH</b> or <b>HUB</b>.</div>
+<div class="box box-key"><span class="label">Key phrase</span><br>"Central device."</div>
+</div>
+
+<!-- ================= 15. RING ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">15</span>Ring Topology</div>
+<p>In Ring Topology, each device is connected to two neighboring devices, forming a closed loop.</p>
+<div class="box-diagram">PC —— PC
+ |       |
+PC —— PC</div>
+<div class="pros-cons">
+<div class="col adv"><div class="col-title">Advantages</div><ul><li>Organized data flow</li><li>Can provide predictable access in some ring protocols</li></ul></div>
+<div class="col dis"><div class="col-title">Disadvantages</div><ul><li>Failure can affect communication depending on the implementation</li><li>Adding or removing devices can be more complicated</li></ul></div>
+</div>
+<div class="box box-key"><span class="label">Key phrase</span><br>"Closed loop."</div>
+</div>
+
+<!-- ================= 16. MESH ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">16</span>Mesh Topology</div>
+<p>In Mesh Topology, devices have multiple interconnections. In a full mesh, every device is directly connected to every other device.</p>
+<div class="box-diagram">A ———— B
+|  \  /  |
+|   \/   |
+|   /\   |
+|  /  \  |
+C ———— D</div>
+<div class="pros-cons">
+<div class="col adv"><div class="col-title">Advantages</div><ul><li>Very high reliability</li><li>Multiple paths exist</li><li>Failure of one link does not necessarily stop communication</li></ul></div>
+<div class="col dis"><div class="col-title">Disadvantages</div><ul><li>Very expensive</li><li>Requires large amounts of cable/ports</li><li>Complex installation and maintenance</li></ul></div>
+</div>
+<div class="box box-key"><span class="label">Key phrase</span><br>"Multiple/direct connections."</div>
+</div>
+
+<!-- ================= 17. TRANSMISSION MEDIA ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">17</span>Transmission Media</div>
+<p>Transmission media is the path or medium through which data signals travel from one device to another. It is broadly divided into Guided Media and Unguided Media.</p>
+<table class="data-table">
+<tr><th>Type</th><th>Description</th><th>Examples</th></tr>
+<tr><td><b>Guided Media</b></td><td>Signals travel through a physical medium.</td><td>Twisted pair, Coaxial cable, Optical fiber</td></tr>
+<tr><td><b>Unguided Media</b></td><td>Signals travel through free space without a physical cable.</td><td>Radio waves, Microwaves, Infrared</td></tr>
+</table>
+<div class="box box-key"><span class="label">Simple distinction</span><br>Guided = physical path &nbsp;|&nbsp; Unguided = wireless/free-space path</div>
+</div>
+
+<!-- ================= 18. GUIDED MEDIA ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">18</span>Guided Transmission Media</div>
+<p>Guided media provides a physical path for signals. The three major types are Twisted Pair, Coaxial Cable, and Optical Fiber.</p>
+</div>
+
+<!-- ================= 19. TWISTED PAIR ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">19</span>Twisted Pair Cable</div>
+<p>Twisted pair cable consists of two insulated copper wires twisted around each other. The twisting helps reduce electromagnetic interference and crosstalk.</p>
+<p><b>Types commonly encountered:</b> UTP — Unshielded Twisted Pair &nbsp;|&nbsp; STP — Shielded Twisted Pair</p>
+<div class="pros-cons">
+<div class="col adv"><div class="col-title">Advantages</div><ul><li>Low cost</li><li>Easy to install</li><li>Widely used in LANs</li><li>Flexible</li></ul></div>
+<div class="col dis"><div class="col-title">Disadvantages</div><ul><li>More susceptible to interference than optical fiber</li><li>Limited distance and bandwidth compared with fiber</li></ul></div>
+</div>
+<div class="box box-key"><span class="label">Key phrase</span><br>"Two twisted copper wires."</div>
+</div>
+
+<!-- ================= 20. COAXIAL ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">20</span>Coaxial Cable</div>
+<p>A coaxial cable contains a central conductor surrounded by insulation, a metallic shield, and an outer protective covering.</p>
+<div class="box-diagram">Outer jacket → Shield → Insulation → Central conductor</div>
+<p>The shielding provides protection against interference.</p>
+<div class="pros-cons">
+<div class="col adv"><div class="col-title">Advantages</div><ul><li>Better shielding than ordinary twisted pair</li><li>Can support relatively high bandwidth</li><li>Strong and reliable</li></ul></div>
+<div class="col dis"><div class="col-title">Disadvantages</div><ul><li>Thicker and less flexible than twisted pair</li><li>More difficult to install than simple twisted pair</li></ul></div>
+</div>
+<div class="box box-key"><span class="label">Key phrase</span><br>"Central conductor + insulation + metallic shield."</div>
+</div>
+
+<!-- ================= 21. OPTICAL FIBER ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">21</span>Optical Fiber</div>
+<p>Optical fiber transmits data using pulses of light. It generally consists of: Core, Cladding, and Protective coating/jacket.</p>
+<p>The core carries light. The cladding surrounds the core and helps keep light confined through the principle of <b>total internal reflection</b>.</p>
+<div class="pros-cons">
+<div class="col adv"><div class="col-title">Advantages</div><ul><li>Very high bandwidth</li><li>Very high data rates</li><li>Low signal loss over long distances</li><li>Resistant to electromagnetic interference</li><li>Good for long-distance communication</li></ul></div>
+<div class="col dis"><div class="col-title">Disadvantages</div><ul><li>Higher installation cost</li><li>More delicate than ordinary copper cables</li><li>Joining and repair can require specialized equipment</li></ul></div>
+</div>
+<div class="box box-key"><span class="label">Key phrase</span><br>"Light through glass/plastic fiber."</div>
+</div>
+
+<!-- ================= 22. UNGUIDED MEDIA ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">22</span>Unguided Transmission Media</div>
+<p>Unguided media transmits signals through free space. It is commonly called wireless transmission. Major examples for this syllabus: Radio waves, Microwaves, Infrared.</p>
+</div>
+
+<!-- ================= 23. RADIO WAVES ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">23</span>Radio Waves</div>
+<p>Radio waves are electromagnetic waves used for wireless communication. They can be used for: Broadcasting, Wireless communication, Mobile communication, Various radio-based systems.</p>
+<p>Radio waves can travel over relatively large areas depending on the frequency, power, antenna, and environment. Signal quality can be affected by: Noise, Interference, Obstacles, Distance.</p>
+<div class="box box-key"><span class="label">Key phrase</span><br>"Wireless electromagnetic communication over radio frequencies."</div>
+</div>
+
+<!-- ================= 24. MICROWAVES ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">24</span>Microwaves</div>
+<p>Microwaves are electromagnetic waves with relatively high frequencies. They are commonly used for directional communication. A major characteristic is <b>line-of-sight transmission</b> for many terrestrial microwave systems.</p>
+<p><b>Applications include:</b> Point-to-point communication, Long-distance communication, Satellite communication, Wireless backhaul. Microwave links may cover long distances when relay stations are used.</p>
+<div class="box box-warning"><span class="label">Important correction</span><br>Bluetooth should not be used as the standard example when asked specifically about microwave communication in a basic networking answer. Bluetooth is generally classified as a radio-based wireless technology operating in the 2.4 GHz ISM band.</div>
+<div class="box box-key"><span class="label">Key phrase</span><br>"Directional, often line-of-sight wireless communication."</div>
+</div>
+
+<!-- ================= 25. INFRARED ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">25</span>Infrared</div>
+<p>Infrared communication uses infrared electromagnetic radiation.</p>
+<p><b>Characteristics:</b> Short range, Generally line-of-sight, Does not normally pass through opaque physical obstacles.</p>
+<div class="box box-example"><span class="label">Example</span><br>Television remote control &middot; Remote control of set-top boxes and similar devices</div>
+<div class="pros-cons">
+<div class="col adv"><div class="col-title">Advantages</div><ul><li>Simple short-range wireless communication</li><li>Does not normally interfere with radio communication in the same way</li></ul></div>
+<div class="col dis"><div class="col-title">Disadvantages</div><ul><li>Short range</li><li>Obstacles can block the signal</li><li>Not suitable for many long-distance applications</li></ul></div>
+</div>
+<div class="box box-key"><span class="label">Key phrase</span><br>"Short-range, line-of-sight wireless communication."</div>
+</div>
+
+<!-- ================= 26. LINE CODING ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">26</span>Line Coding</div>
+<p>Line coding is the process of converting digital data, represented as bits (0 and 1), into digital signals suitable for transmission over a physical medium.</p>
+<div class="flow">Digital Data (0s and 1s) → LINE CODING → Digital Signal → Transmission Medium</div>
+<p><b>Example:</b> Data: 1010 — A line coding scheme decides how each 1 and 0 will be represented by signal levels or transitions.</p>
+<div class="box box-key"><span class="label">Note</span><br>Line coding is a Physical Layer concept.</div>
+</div>
+
+<!-- ================= 27. PURPOSE ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">27</span>Purpose of Line Coding</div>
+<p>Line coding is used to:</p>
+<ol>
+<li>Represent digital bits as signals.</li>
+<li>Allow digital data to travel through a communication medium.</li>
+<li>Help receiver synchronization.</li>
+<li>Control signal characteristics.</li>
+<li>Improve transmission efficiency depending on the scheme.</li>
+<li>Reduce undesirable signal properties in suitable schemes.</li>
+</ol>
+<p>Different schemes use different voltage levels and/or transitions.</p>
+</div>
+
+<!-- ================= 28. UNIPOLAR ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">28</span>Unipolar Line Coding</div>
+<p>In basic unipolar encoding, only one non-zero voltage polarity is used.</p>
+<p><b>Typical representation:</b> 1 = +V &nbsp;|&nbsp; 0 = 0V</p>
+<table class="data-table">
+<tr><th>Data</th><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+<tr><th>Signal</th><td>+V</td><td>0</td><td>+V</td><td>+V</td><td>0</td></tr>
+</table>
+<p>The exact waveform depends on the duration and timing convention.</p>
+<div class="pros-cons">
+<div class="col adv"><div class="col-title">Advantages</div><ul><li>Very simple</li><li>Easy to understand and implement</li></ul></div>
+<div class="col dis"><div class="col-title">Disadvantages</div><ul><li>Contains a significant DC component</li><li>Poor synchronization for long sequences without transitions</li><li>Not efficient for practical high-speed communication</li></ul></div>
+</div>
+<div class="box box-exam"><span class="label">Exam definition</span><br>"Unipolar line coding represents one binary value by a positive voltage and the other by zero voltage."</div>
+<div class="box box-key"><span class="label">Key memory</span><br>UNIPOLAR = +V and 0V</div>
+</div>
+
+<!-- ================= 29. POLAR ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">29</span>Polar Line Coding</div>
+<p>Polar encoding uses two voltage polarities.</p>
+<p><b>Typical basic representation:</b> 1 = +V &nbsp;|&nbsp; 0 = −V</p>
+<table class="data-table">
+<tr><th>Data</th><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><th>Signal</th><td>+V</td><td>−V</td><td>+V</td><td>−V</td></tr>
+</table>
+<div class="box box-warning"><span class="label">Important</span><br>The exact assignment of 0 and 1 can depend on the particular polar scheme or convention. For basic exam questions, the common convention above is usually sufficient unless your textbook specifies otherwise.</div>
+<div class="pros-cons" style="display:block;">
+<div class="col adv" style="margin-bottom:6px;"><div class="col-title">Advantages</div><ul><li>Uses positive and negative levels</li><li>Better DC characteristics than simple unipolar signaling in many cases</li><li>Can provide improved synchronization depending on the specific scheme</li></ul></div>
+</div>
+<div class="box box-key"><span class="label">Key memory</span><br>POLAR = +V and −V</div>
+</div>
+
+<!-- ================= 30. BIPOLAR AMI ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">30</span>Bipolar / AMI Line Coding</div>
+<p>Bipolar encoding uses three signal levels: +V, 0V, −V.</p>
+<p>In <b>Alternate Mark Inversion (AMI)</b>: 0 = 0V. Successive 1s alternate between +V and −V.</p>
+<table class="data-table">
+<tr><th>Data</th><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+<tr><th>Signal</th><td>+V</td><td>0</td><td>−V</td><td>+V</td><td>0</td><td>−V</td></tr>
+</table>
+<p>Notice that the first 1 is +V. The next 1 becomes −V. The next 1 becomes +V again. This alternating polarity helps avoid a constant DC level and can also make certain errors easier to detect.</p>
+<div class="box box-key"><span class="label">Key memory</span><br>BIPOLAR = +V, 0V, −V &nbsp;&nbsp;|&nbsp;&nbsp; AMI: 0 → 0V, 1 → alternating +V/−V</div>
+<div class="box box-warning"><span class="label">Very important</span><br>Bipolar does NOT mean that 0 is represented by either +V or −V. In basic AMI: 0 is always 0V. Only successive 1s alternate polarity.</div>
+</div>
+
+<!-- ================= 31. MANCHESTER ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">31</span>Manchester Encoding</div>
+<p>Manchester encoding represents each bit using a transition in the middle of the bit period. The middle transition provides timing information and therefore makes clock synchronization easier.</p>
+<p>The exact assignment of 0 = one transition direction, 1 = opposite transition direction depends on the convention being used.</p>
+<div class="box box-exam"><span class="label">Most important exam concept</span><br>"Every bit has a transition in the middle of the bit period."</div>
+<div class="pros-cons">
+<div class="col adv"><div class="col-title">Advantages</div><ul><li>Excellent synchronization</li><li>Receiver can recover timing from the signal</li><li>No long flat sequence without a transition in the middle</li></ul></div>
+<div class="col dis"><div class="col-title">Disadvantage</div><ul><li>Requires more signal transitions</li><li>Therefore requires greater bandwidth than some simpler schemes</li></ul></div>
+</div>
+<div class="box box-key"><span class="label">Key memory</span><br>MANCHESTER = MIDDLE TRANSITION</div>
+</div>
+
+<!-- ================= 32. COMPARISON LINE CODING ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">32</span>Comparison of Line Coding Schemes</div>
+<table class="data-table">
+<tr><th>Scheme</th><th>Representation</th><th>Memory Cue</th></tr>
+<tr><td>Unipolar</td><td>1 = +V, 0 = 0V</td><td>One polarity + zero</td></tr>
+<tr><td>Polar</td><td>1 = +V, 0 = −V</td><td>Positive and negative</td></tr>
+<tr><td>Bipolar / AMI</td><td>0 = 0V, 1 = alternating +V and −V</td><td>Three levels</td></tr>
+<tr><td>Manchester</td><td>Each bit has a transition in the middle</td><td>Middle transition = synchronization</td></tr>
+</table>
+<div class="box box-key"><span class="label">Very short memory</span><br>Unipolar → + and 0 &nbsp;|&nbsp; Polar → + and − &nbsp;|&nbsp; Bipolar → +, 0, − &nbsp;|&nbsp; Manchester → transition</div>
+</div>
+
+<!-- ================= 33. SWITCHING ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">33</span>Switching</div>
+<p>Switching is the process of selecting or establishing a path through a network so that data can travel from source to destination. In a large network, the source and destination are usually not directly connected — intermediate devices help forward the information.</p>
+<p>The major switching methods in this syllabus are: Circuit Switching and Packet Switching.</p>
+</div>
+
+<!-- ================= 34. CIRCUIT SWITCHING ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">34</span>Circuit Switching</div>
+<p>Circuit switching establishes a dedicated communication path between the sender and receiver before communication begins. Once established, the resources/path are reserved for that connection for the duration of the communication.</p>
+<div class="box box-example"><span class="label">Classic example</span><br>Traditional telephone networks.</div>
+<div class="flow">Sender —— dedicated path —— Receiver</div>
+<p><b>Characteristics:</b> Dedicated path &middot; Connection establishment before data transfer &middot; Reserved resources &middot; Predictable path &middot; Suitable for continuous communication</p>
+<div class="pros-cons">
+<div class="col adv"><div class="col-title">Advantages</div><ul><li>Dedicated connection</li><li>Predictable performance after setup</li><li>No competition for the reserved path during the connection</li></ul></div>
+<div class="col dis"><div class="col-title">Disadvantages</div><ul><li>Resources remain reserved even when no data is being transmitted</li><li>Connection setup takes time</li><li>Inefficient for bursty computer data</li><li>A failure in the path can interrupt the connection</li></ul></div>
+</div>
+</div>
+
+<!-- ================= 35. PHASES ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">35</span>Phases of Circuit Switching</div>
+<p>Circuit switching generally has three phases:</p>
+<h4 class="layer-head"><span class="badge">Phase 1</span>Circuit Establishment / Setup</h4>
+<p>A path is selected and established between the sender and receiver. Network resources are reserved for the connection.</p>
+<div class="box box-example"><span class="label">Example</span><br>When a traditional telephone call is started, the network establishes a path before the conversation proceeds.</div>
+<h4 class="layer-head"><span class="badge">Phase 2</span>Data Transfer</h4>
+<p>After the circuit is established, the actual data or voice information is transmitted through the dedicated path.</p>
+<h4 class="layer-head"><span class="badge">Phase 3</span>Circuit Disconnect</h4>
+<p>When communication ends, the connection is terminated and the reserved network resources are released.</p>
+<div class="mnemonic">SETUP → TALK/TRANSFER → DISCONNECT</div>
+</div>
+
+<!-- ================= 36. PACKET SWITCHING ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">36</span>Packet Switching</div>
+<p>In packet switching, data is divided into smaller units called packets. The packets are transmitted through a shared network rather than reserving one complete dedicated path for the entire communication.</p>
+<div class="flow">Large message → Packet 1 → Packet 2 → Packet 3 → Packet 4</div>
+<p>The packets may be forwarded through the network using available resources.</p>
+<p><b>Characteristics:</b> No dedicated end-to-end circuit is required &middot; Network resources are shared &middot; Data is divided into packets &middot; Packets contain addressing/control information &middot; Efficient for bursty computer communication</p>
+<div class="pros-cons">
+<div class="col adv"><div class="col-title">Advantages</div><ul><li>Efficient use of network resources</li><li>Good for bursty data</li><li>Many users can share the network</li><li>More flexible than dedicated circuit switching</li></ul></div>
+<div class="col dis"><div class="col-title">Disadvantages</div><ul><li>Variable delay</li><li>Packets may experience congestion</li><li>Packets can potentially be lost or arrive out of order, depending on the network and protocol</li><li>Quality may vary during heavy traffic</li></ul></div>
+</div>
+</div>
+
+<!-- ================= 37. COMPARISON SWITCHING ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">37</span>Circuit Switching vs Packet Switching</div>
+<table class="data-table">
+<tr><th>Aspect</th><th>Circuit Switching</th><th>Packet Switching</th></tr>
+<tr><td>Path</td><td>Dedicated</td><td>Shared/dynamic</td></tr>
+<tr><td>Setup</td><td>Required before communication</td><td>No dedicated circuit required in basic datagram packet switching</td></tr>
+<tr><td>Resource</td><td>Reserved</td><td>Shared</td></tr>
+<tr><td>Data</td><td>Continuous stream can use the dedicated path</td><td>Divided into packets</td></tr>
+<tr><td>Efficiency</td><td>Lower for bursty traffic</td><td>High for bursty computer data</td></tr>
+<tr><td>Delay</td><td>Predictable after setup, but setup delay occurs</td><td>Can vary due to congestion</td></tr>
+<tr><td>Example</td><td>Traditional telephone systems</td><td>Internet data communication</td></tr>
+</table>
+<div class="box box-key"><span class="label">Very important distinction</span><br>Circuit Switching = reserve the road. &nbsp;&nbsp; Packet Switching = share the road and send data in packets.</div>
+</div>
+
+<!-- ================= 38. TDM ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">38</span>Time Division Multiplexing (TDM)</div>
+<p>TDM stands for <b>Time Division Multiplexing</b>. Multiplexing means combining multiple signals so that they can share a common communication channel.</p>
+<p>In TDM, multiple users/signals share the same communication channel by being assigned different time slots.</p>
+<div class="box-diagram">User A → Time Slot 1
+User B → Time Slot 2
+User C → Time Slot 3
+User D → Time Slot 4</div>
+<p>Then the cycle repeats:</p>
+<div class="flow">A | B | C | D | A | B | C | D |</div>
+<p>All users use the same physical channel, but at different times.</p>
+
+<h4 class="layer-head"><span class="badge">⚙</span>How TDM Works</h4>
+<p>Suppose four input sources need to communicate. Without multiplexing, each source may need a separate channel. With TDM, one shared channel is divided into repeating time slots.</p>
+<div class="box-diagram">Frame:      A | B | C | D |
+Next frame: A | B | C | D |
+
+  A ——\
+  B ———\
+  C ————→ MULTIPLEXER —— Shared Channel —— DEMULTIPLEXER —→ A, B, C, D
+  D ——/</div>
+<p>A multiplexer at the sender combines the inputs. A demultiplexer at the receiver separates them again.</p>
+
+<h4 class="layer-head"><span class="badge">⚙</span>Types of TDM</h4>
+<p>Two basic types often discussed: Synchronous TDM and Statistical / Asynchronous TDM.</p>
+<table class="data-table">
+<tr><th>Type</th><th>Description</th><th>Advantage</th><th>Disadvantage</th></tr>
+<tr><td><b>Synchronous TDM</b></td><td>Each input is assigned a fixed time slot in each frame, even if that input has no data to send. Example: A | B | C | D — even if C has nothing to send, its slot may remain unused.</td><td>Simple, Predictable, Easy to manage</td><td>Wastes capacity when an assigned source has no data</td></tr>
+<tr><td><b>Statistical TDM</b></td><td>Time slots are dynamically assigned to sources that actually have data. Example: if A and C have data — A | C | A | C. Unused sources do not necessarily consume fixed slots.</td><td>Better utilization, Efficient for bursty traffic</td><td>More complex, Requires additional addressing/control information</td></tr>
+</table>
+
+<h4 class="layer-head"><span class="badge">⚙</span>Important TDM Terms</h4>
+<div class="definition-card"><b>Time Slot:</b> A small portion of time allocated to a particular input/source.</div>
+<div class="definition-card"><b>Frame:</b> A repeating group of time slots.</div>
+<div class="definition-card"><b>Multiplexer:</b> Combines multiple input signals into one shared output.</div>
+<div class="definition-card"><b>Demultiplexer:</b> Separates the combined signal back into individual outputs.</div>
+<div class="box box-key"><span class="label">Key memory</span><br>TDM = Same channel, different times.</div>
+</div>
+
+<!-- ================= 39. DEFINITIONS ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">39</span>Important Definitions for Examination</div>
+<div class="definition-card"><b>Computer Network:</b> A collection of interconnected devices that communicate and share data, resources, and services.</div>
+<div class="definition-card"><b>Network Structure:</b> The arrangement of network components such as devices, links, networking equipment, and protocols.</div>
+<div class="definition-card"><b>Network Architecture:</b> The overall design of a network describing how devices communicate and how services are organized.</div>
+<div class="definition-card"><b>OSI Model:</b> A seven-layer reference model that standardizes and explains network communication functions.</div>
+<div class="definition-card"><b>Topology:</b> The physical or logical arrangement of devices and connections in a network.</div>
+<div class="definition-card"><b>Transmission Media:</b> The path through which signals travel from one device to another.</div>
+<div class="definition-card"><b>Guided Media:</b> Transmission media in which signals travel through a physical medium.</div>
+<div class="definition-card"><b>Unguided Media:</b> Transmission media in which signals travel through free space without a physical cable.</div>
+<div class="definition-card"><b>Line Coding:</b> The conversion of digital data into digital signals suitable for transmission.</div>
+<div class="definition-card"><b>Switching:</b> The process of selecting or establishing a path for transferring data through a network.</div>
+<div class="definition-card"><b>Circuit Switching:</b> A switching method in which a dedicated path is established and reserved for communication.</div>
+<div class="definition-card"><b>Packet Switching:</b> A switching method in which data is divided into packets and transmitted over shared network resources.</div>
+<div class="definition-card"><b>TDM:</b> A multiplexing technique in which multiple signals share a channel by using different time slots.</div>
+</div>
+
+<!-- ================= 40. LAST MINUTE REVISION ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">40</span>Last-Minute Revision Sheet</div>
+<table class="data-table">
+<tr><th style="width:22%">Topic</th><th>Quick Recall</th></tr>
+<tr><td>Networking</td><td>Network = devices + links + protocols + communication.</td></tr>
+<tr><td>Goals</td><td>Data transfer &middot; Resource sharing &middot; Communication &middot; Remote access &middot; Reliability &middot; Scalability</td></tr>
+<tr><td>Architecture</td><td>Client-server &middot; Peer-to-peer</td></tr>
+<tr><td>OSI</td><td>7 Application, 6 Presentation, 5 Session, 4 Transport, 3 Network, 2 Data Link, 1 Physical &nbsp;(Mnemonic: APSTNDP)</td></tr>
+<tr><td>Data Units</td><td>Data → Segment → Packet → Frame → Bits</td></tr>
+<tr><td>Layer Memory</td><td>Application = Services &middot; Presentation = Format &middot; Session = Session management &middot; Transport = End-to-end &middot; Network = Routing/IP &middot; Data Link = Frames/MAC &middot; Physical = Bits/Signals</td></tr>
+<tr><td>Topologies</td><td>Bus = Backbone &middot; Star = Central device &middot; Ring = Loop &middot; Mesh = Multiple/direct links</td></tr>
+<tr><td>Guided Media</td><td>Twisted pair &middot; Coaxial &middot; Optical fiber</td></tr>
+<tr><td>Unguided Media</td><td>Radio &middot; Microwave &middot; Infrared</td></tr>
+<tr><td>Guided Memory</td><td>Twisted pair = twisted copper &middot; Coaxial = central conductor + shield &middot; Fiber = light</td></tr>
+<tr><td>Unguided Memory</td><td>Radio = wireless radio communication &middot; Microwave = directional/line-of-sight &middot; Infrared = short range/line-of-sight</td></tr>
+<tr><td>Line Coding</td><td>Unipolar = +V, 0 &middot; Polar = +V, −V &middot; Bipolar/AMI = +V, 0, −V &middot; Manchester = middle transition</td></tr>
+<tr><td>Switching</td><td>Circuit = dedicated path &middot; Packet = packets/shared path</td></tr>
+<tr><td>Circuit Phases</td><td>Setup → Data Transfer → Disconnect</td></tr>
+<tr><td>TDM</td><td>Same channel + different time slots</td></tr>
+</table>
+</div>
+
+<!-- ================= 41. COMMON MISTAKES ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">41</span>Common Mistakes to Avoid</div>
+<div class="box box-warning"><span class="label">Mistake 1</span><br>DO NOT confuse Network Layer and Data Link Layer.<br><b>Network Layer:</b> IP, routing, packets. &nbsp;&nbsp;<b>Data Link Layer:</b> MAC, frames, node-to-node delivery.</div>
+<div class="box box-warning"><span class="label">Mistake 2</span><br>DO NOT confuse Physical Layer with Data Link Layer.<br><b>Physical:</b> Bits and signals. &nbsp;&nbsp;<b>Data Link:</b> Frames and MAC addresses.</div>
+<div class="box box-warning"><span class="label">Mistake 3</span><br>DO NOT put encryption/decryption primarily under Transport Layer in a basic OSI answer. Encryption/decryption is associated with the Presentation Layer.</div>
+<div class="box box-warning"><span class="label">Mistake 4</span><br>DO NOT say the Star Topology always uses a router. The central device is normally a switch or hub in a typical LAN.</div>
+<div class="box box-warning"><span class="label">Mistake 5</span><br>DO NOT call Data Link data units packets. Data Link = Frames. Network = Packets.</div>
+<div class="box box-warning"><span class="label">Mistake 6</span><br>DO NOT call Physical Layer data units packets. Physical Layer = Bits/signals.</div>
+<div class="box box-warning"><span class="label">Mistake 7</span><br>DO NOT say Bluetooth is the standard example of microwave transmission in a basic answer. Bluetooth is generally classified as radio-based wireless communication.</div>
+<div class="box box-warning"><span class="label">Mistake 8</span><br>DO NOT confuse goals with applications.<br>Goal: Resource sharing → Application: Printer sharing.<br>Goal: Communication → Application: Email/video conferencing.</div>
+<div class="box box-warning"><span class="label">Mistake 9</span><br>DO NOT forget the three phases of circuit switching: Setup, Data transfer, Disconnect.</div>
+<div class="box box-warning"><span class="label">Mistake 10</span><br>DO NOT forget that Manchester's key feature is the transition in the middle of every bit period.</div>
+<div class="box box-warning"><span class="label">Mistake 11</span><br>DO NOT forget the special rule of AMI: 0 = 0V, 1 = alternating +V and −V.</div>
+<div class="box box-warning"><span class="label">Mistake 12</span><br>DO NOT describe Session Layer only as "keeping connection alive." Write: Establishes, manages, synchronizes, and terminates sessions.</div>
+</div>
+
+<!-- ================= 42. SUBJECTIVE QUESTIONS ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">42</span>Important Subjective Questions</div>
+
+<h3 class="sub-head">Short Answer Questions</h3>
+<ol class="qlist">
+<li>Define a computer network.</li>
+<li>State any three goals of computer networks.</li>
+<li>List applications of computer networks.</li>
+<li>Define network structure.</li>
+<li>Define network architecture.</li>
+<li>What is client-server architecture?</li>
+<li>What is peer-to-peer architecture?</li>
+<li>What is the OSI model?</li>
+<li>Name the seven OSI layers.</li>
+<li>What is the function of the Physical Layer?</li>
+<li>What is the function of the Data Link Layer?</li>
+<li>What is the function of the Network Layer?</li>
+<li>What is the function of the Transport Layer?</li>
+<li>What is the function of the Session Layer?</li>
+<li>What is the function of the Presentation Layer?</li>
+<li>What is the function of the Application Layer?</li>
+<li>Define network topology.</li>
+<li>Define transmission media.</li>
+<li>What are guided and unguided media?</li>
+<li>What is line coding?</li>
+<li>What is switching?</li>
+<li>Define circuit switching.</li>
+<li>Define packet switching.</li>
+<li>What is TDM?</li>
+</ol>
+
+<h3 class="sub-head">Long Answer Questions</h3>
+<ol class="qlist">
+<li>Explain the goals and applications of computer networks.</li>
+<li>Explain network structure and network architecture.</li>
+<li>Explain client-server and peer-to-peer architectures.</li>
+<li>Explain the OSI reference model in detail.</li>
+<li>Explain all seven OSI layers with their functions.</li>
+<li>Compare the OSI layers and their responsibilities.</li>
+<li>Explain different network topologies with advantages and disadvantages.</li>
+<li>Explain guided transmission media.</li>
+<li>Explain twisted pair, coaxial cable, and optical fiber.</li>
+<li>Explain unguided transmission media.</li>
+<li>Explain radio waves, microwaves, and infrared.</li>
+<li>Define line coding and explain different line coding schemes.</li>
+<li>Explain unipolar, polar, bipolar/AMI, and Manchester encoding.</li>
+<li>Explain switching and its types.</li>
+<li>Explain circuit switching and its phases.</li>
+<li>Explain packet switching.</li>
+<li>Compare circuit switching and packet switching.</li>
+<li>Explain Time Division Multiplexing.</li>
+<li>Explain synchronous and statistical TDM.</li>
+<li>Compare different transmission media.</li>
+</ol>
+</div>
+
+<!-- ================= EXAM STRATEGY ================= -->
+<div class="section">
+<div class="section-head"><span class="num-badge">★</span>Exam-Writing Strategy</div>
+<div class="strategy-card"><div class="title">For a 2-mark question</div>1. Give the definition. &nbsp; 2. Add one key point or example.</div>
+<div class="strategy-card"><div class="title">For a 3-mark question</div>1. Definition &nbsp; 2. Three important points &nbsp; 3. Example if applicable</div>
+<div class="strategy-card"><div class="title">For a 5-mark question</div>1. Definition/introduction &nbsp; 2. Main functions or working &nbsp; 3. Diagram if applicable &nbsp; 4. Advantages/disadvantages or comparison &nbsp; 5. Example/conclusion</div>
+<div class="strategy-card"><div class="title">For "Explain OSI model"</div>Always write the seven layers in correct order and explain each layer.</div>
+<div class="strategy-card"><div class="title">For "Compare"</div>Use a table whenever possible.</div>
+<div class="strategy-card"><div class="title">For "Explain topology"</div>Draw a simple diagram if time permits.</div>
+<div class="strategy-card"><div class="title">For "Explain switching"</div>Start with the definition and then explain: Circuit switching, Packet switching.</div>
+<div class="strategy-card"><div class="title">For "Explain TDM"</div>Use the time-slot diagram: A | B | C | D | A | B | C | D | — then explain that all users share the same channel at different times.</div>
+</div>
+
+<!-- ================= FINAL REVISION ================= -->
+<div class="section">
+<div class="final-box">
+<h3>Final Professor's Revision</h3>
+<p>If you remember only the following chains before entering the exam, you can reconstruct a large part of the chapter:</p>
+<p><b>OSI:</b> APSTNDP</p>
+<p><b>Data Movement:</b> Data → Segment → Packet → Frame → Bits</p>
+<p><b>OSI Functions:</b> Application → Services &nbsp;|&nbsp; Presentation → Format &nbsp;|&nbsp; Session → Session &nbsp;|&nbsp; Transport → End-to-end &nbsp;|&nbsp; Network → Routing &nbsp;|&nbsp; Data Link → Frames/MAC &nbsp;|&nbsp; Physical → Signals</p>
+<p><b>Topology:</b> Bus → Backbone &nbsp;|&nbsp; Star → Center &nbsp;|&nbsp; Ring → Loop &nbsp;|&nbsp; Mesh → Multiple links</p>
+<p><b>Media:</b> Guided → Cable &nbsp;|&nbsp; Unguided → Wireless</p>
+<p><b>Guided:</b> Twisted Pair → Copper &nbsp;|&nbsp; Coaxial → Shield &nbsp;|&nbsp; Fiber → Light</p>
+<p><b>Line Coding:</b> Unipolar → +V/0 &nbsp;|&nbsp; Polar → +V/−V &nbsp;|&nbsp; Bipolar → +V/0/−V &nbsp;|&nbsp; Manchester → Middle transition</p>
+<p><b>Switching:</b> Circuit → Dedicated &nbsp;|&nbsp; Packet → Shared packets</p>
+<p><b>Circuit:</b> Setup → Transfer → Disconnect</p>
+<p><b>TDM:</b> Same channel → Different time slots</p>
+<p style="margin-top:14px; font-style:italic;">The central idea of the entire chapter is simple: A network allows devices to communicate. The OSI model explains the communication process layer by layer. Topology explains how devices are arranged. Transmission media explains how signals travel. Line coding explains how digital bits become digital signals. Switching explains how data moves through a network. TDM explains how multiple signals can share one channel by taking turns in time.</p>
+</div>
+</div>
+
+</body>
+</html>
